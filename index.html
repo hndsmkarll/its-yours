@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- CHANGED TAB TITLE -->
+  <title>Only You</title>
+  
+  <!-- TULIP FAVICON -->
+  <link rel="icon" type="image/png" href="images/favicon.png?v=3">
+  <link rel="apple-touch-icon" href="images/favicon.png?v=3">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fraunces:ital,wght@0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tree.css">
+</head>
+<body>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="audio/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="bg" class="bg-scene" aria-hidden="true">
+    <div class="aurora"><span></span><span></span><span></span></div>
+    <div class="rays"></div>
+    <div class="stars"></div>
+    <div class="sun"></div>
+    <div class="moon"></div>
+    <div class="clouds"></div>
+    <div class="twinkles"></div>
+    <div class="shooting"></div>
+    <div class="bokeh"></div>
+    <svg class="hills" viewBox="0 0 1000 300" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6cdee"/><stop offset="1" stop-color="#f3b3da"/></linearGradient>
+        <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8aed3"/><stop offset="1" stop-color="#f291bd"/></linearGradient>
+        <linearGradient id="h3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f485b4"/><stop offset="1" stop-color="#e46a9f"/></linearGradient>
+      </defs>
+      <path d="M0 150 C150 70 300 90 450 140 C600 190 780 70 1000 120 L1000 300 L0 300Z" fill="url(#h1)" opacity=".85"/>
+      <path d="M0 190 C180 120 330 170 520 190 C700 210 840 130 1000 170 L1000 300 L0 300Z" fill="url(#h2)"/>
+      <path d="M0 245 C200 205 380 250 560 235 C740 220 880 215 1000 240 L1000 300 L0 300Z" fill="url(#h3)"/>
+    </svg>
+    <div class="vignette"></div>
+  </div>
+
+  <div id="photoRain" class="photo-rain" aria-hidden="true"></div>
+
+  <div id="treeScene" class="tree-scene" aria-hidden="true" hidden>
+    <svg id="treeSvg" class="tree" viewBox="0 0 800 800" preserveAspectRatio="xMidYMax meet"></svg>
+    <div class="petals"></div>
+    <div class="hearts"></div>
+
+    <div class="bunny-wrap" id="bunny" role="button" tabindex="0" aria-label="A cute bunny. Touch it to play a song.">
+      <div class="bunny-bubble" id="bunnyBubble">
+        <div class="bunny-bubble-inner">Wanna make it more romantic? Touch me!!</div>
+      </div>
+      <div class="bunny-inner">
+        <svg class="bunny-svg" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="175" cy="160" r="16" fill="#FFE4C4" stroke="#000" stroke-width="7"/>
+          <path d="M 110,180 C 110,165 140,165 140,180" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+          <ellipse cx="120" cy="140" rx="60" ry="50" fill="#FFE4C4" stroke="#000" stroke-width="7"/>
+          <path d="M 75,95 C 60,30 100,10 120,20 C 135,40 120,80 100,95 Z" fill="#FFE4C4" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+          <path d="M 85,85 C 75,40 100,25 115,35 C 120,50 105,80 95,85 Z" fill="#FFB6C1" stroke="none"/>
+          <path d="M 55,95 C 25,15 70,0 90,10 C 110,30 95,80 75,95 Z" fill="#FFE4C4" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+          <path d="M 65,85 C 45,25 75,15 85,25 C 95,40 80,75 70,85 Z" fill="#FFB6C1" stroke="none"/>
+          <ellipse cx="75" cy="115" rx="50" ry="42" fill="#FFE4C4" stroke="#000" stroke-width="7"/>
+          <path d="M 65,180 C 65,165 95,165 95,180" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+          <path d="M 45,105 Q 55,95 65,105" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="28" cy="125" r="6" fill="#FF8888" stroke="#000" stroke-width="4"/>
+          <circle cx="55" cy="130" r="12" fill="#FFB6C1" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <aside id="letterCard" class="letter-card" hidden>
+    <div class="letter-paper">
+      <div class="letter-seal" aria-hidden="true">💌</div>
+      <p class="letter-to">Happy Birthday, lablabb!</p>
+      <div class="letter-divider" aria-hidden="true"><span>✦</span></div>
+      <p id="letterText" class="letter-body" aria-live="polite"></p>
+      
+      <div id="letterSign" class="letter-sign">
+        <div class="signature-text">
+          <span class="sign-off" id="letterSignOff"></span>
+          <img src="images/signature.png" alt="Signature" class="signature-img">
+          <span class="sign-name" id="letterFrom"></span>
+        </div>
+        
+        <div class="letter-polaroid tilt-right">
+          <img src="images/photo11.jpg" alt="Our memory">
+        </div>
+        <div class="letter-polaroid">
+          <img src="images/photo8.jpg" alt="Our memory">
+        </div>
+      </div>
+      
+    </div>
+    <p id="letterSkip" class="letter-skip">✦ tap the letter to read it all ✦</p>
+  </aside>
+
+  <section id="auth" class="gift-screen auth">
+    <div class="auth-icon">💌</div>
+    <p class="greet">Say the secret phrase<br>to open your gift</p>
+    
+    <button id="mic" class="mic" aria-label="Start listening">
+      <span>🎤</span>
+    </button>
+    
+    <p id="authStatus" class="hint" role="status">Tap the mic, then say it out loud</p>
+    <p id="heard" class="heard" aria-live="polite"></p>
+    <p id="clue" class="hint clue-text"></p>
+    
+    <div class="auth-divider"><span>or</span></div>
+    
+    <button id="typeToggle" class="link" type="button">Mic not working? Type it instead</button>
+    <form id="typeForm" class="typeform" hidden>
+      <input id="typeInput" type="text" autocomplete="off" placeholder="Type the phrase..." aria-label="Secret phrase">
+      <button class="btn" type="submit">Open</button>
+    </form>
+  </section>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-card">
+      <div class="rise" aria-hidden="true"><span>💖</span><span>🌸</span><span>💗</span><span>🎀</span><span>💕</span><span>🌷</span></div>
+      <svg class="bunny" viewBox="0 0 160 170" role="img" aria-label="A cute bunny holding a heart">
+        <g class="ears">
+          <ellipse cx="55" cy="38" rx="14" ry="36" fill="#fff"/><ellipse cx="55" cy="40" rx="7" ry="26" fill="#ffb3d1"/>
+          <ellipse cx="105" cy="38" rx="14" ry="36" fill="#fff"/><ellipse cx="105" cy="40" rx="7" ry="26" fill="#ffb3d1"/>
+        </g>
+        <ellipse cx="80" cy="128" rx="44" ry="36" fill="#fff"/>
+        <circle cx="80" cy="88" r="38" fill="#fff"/>
+        <circle cx="66" cy="84" r="4.5" fill="#6b1d45"/><circle cx="94" cy="84" r="4.5" fill="#6b1d45"/>
+        <ellipse cx="55" cy="97" rx="7" ry="5" fill="#ff9fc4" opacity=".85"/><ellipse cx="105" cy="97" rx="7" ry="5" fill="#ff9fc4" opacity=".85"/>
+        <path d="M76 93 h8 l-4 5z" fill="#ff7fae"/>
+        <path d="M72 102 q4 5 8 0 q4 5 8 0" stroke="#6b1d45" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M80 152 C50 132 58 110 72 112 C77 113 80 118 80 118 C80 118 83 113 88 112 C102 110 110 132 80 152Z" fill="#ff5c93"/>
+        <circle cx="62" cy="128" r="9" fill="#fff"/><circle cx="98" cy="128" r="9" fill="#fff"/>
+      </svg>
+      <h2 id="modalTitle">Nice onee, lablabb</h2>
+      <p id="modalText"></p>
+      <button id="modalBtn" class="btn" type="button">Open 🎁</button>
+    </div>
+  </div>
+
+  <script src="js/tree.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
