@@ -315,7 +315,7 @@ function unlock() {
   if (!$("modal").hidden) return;
   $("mic").disabled = true;
   $("authStatus").textContent = "Unlocked! 💖";
-  $("modalText").textContent = "You said the magic words, " + CONFIG.name;
+  $("modalText").textContent = "You said the magic words!";
   burst(100);
   $("modal").hidden = false;
   $("modalBtn").focus();
